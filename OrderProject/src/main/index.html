@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>COFFEE STORE</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Welcome Doki´s Coffee</h1>
+
+    <form>
+        <div class="mb-3 mt-3">
+            <label for="coffeeCode" class="form-label">Code:</label>
+            <input type="text" class="form-control" id="coffeeCode" placeholder="Enter code" name="coffeeCode">
+        </div>
+        <div class="mb-3 mt=mt-3">
+            <label for="coffeeName" class="form-label">Coffee name:</label>
+            <input type="text" class="form-control" id="coffeeName" placeholder="Enter name" name="coffeeName">
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="coffeeSize" class="form-label">Size:</label>
+            <input type="text" class="form-control" id="coffeeSize" placeholder="Enter size" name="coffeeSize">
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="coffeeMilk" class="form-label">Type of milk:</label>
+            <input type="text" class="form-control" id="coffeeMilk" placeholder="Enter type of milk" name="coffeeMilk">
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="customerName" class="form-label">Customer name:</label>
+            <input type="text" class="form-control" id="customerName" placeholder="Enter customer name" name="customerName">
+        </div>
+        <button type="button" class="btn btn-primary" onclick="orderRegistrer()">Save</button>
+    </form>
+</div>
+
+<script>
+
+    function cleanScreen() {
+        document.getElementById("coffeeCode").value = "";
+        document.getElementById("coffeName").value = "";
+        document.getElementById("coffeeSize").value = "";
+        document.getElementById("coffeeMilk").value = "";
+        document.getElementById("customerName").value = "";
+    }
+
+    function orderRegister() {
+        const formCoffeeCode = document.getElementById("coffeeCode").value;
+        const formCoffeeName = document.getElementById("coffeeName").value;
+        const formCoffeeSize = document.getElementById("coffeeSize").value;
+        const formCoffeeMilk = document.getElementById("coffeeMilk").value;
+        const formCustomerName = document.getElementById("customerName").value;
+
+        const apiUrl = "";
+
+        //Create Object
+        const coffeeObject = {
+            code : formCoffeeCode,
+            nameC : formCoffeeName,
+            size : formCoffeeSize,
+            milk : formCoffeeMilk,
+            nameCm : formCustomerName
+
+        };
+
+        //Configure the request
+        const requestOptions = {
+            method : 'POST',
+            headers : {
+                'Content_Type' : 'application/json'
+            },
+            body: JSON.stringify(coffeeObject)
+        };
+
+        //Call to URL
+        fetch(apiUrl, requestOptions)
+            .then(response => {
+                if(!response.ok) {
+                    throw new Error ('HTTP Error! Status: ${response.status}');
+                }
+                return response.json();
+            })
+
+            .then(coffeeFromAppi => {
+                console.log('Success:', coffeeFromApi);
+                cleanScreen();
+            })
+
+            .catch(Error => {
+                console.log('Error: ', Error);
+            });
+
+    }
+</script>
+</body>
+</html>
